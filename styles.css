@@ -1,0 +1,501 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #007AFF;
+    --secondary-color: #34C759;
+    --accent-color: #FF9500;
+    --danger-color: #FF3B30;
+    --background-dark: #1C1C1E;
+    --background-medium: #2C2C2E;
+    --background-light: #3A3A3C;
+    --surface-color: rgba(255, 255, 255, 0.1);
+    --text-primary: #FFFFFF;
+    --text-secondary: #AEAEB2;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --gradient-primary: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+    --gradient-success: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+    --gradient-warning: linear-gradient(135deg, #FF9500 0%, #FFCC02 100%);
+}
+
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--background-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(0, 122, 255, 0.1) 0%, 
+        rgba(88, 86, 214, 0.1) 25%, 
+        rgba(52, 199, 89, 0.1) 50%, 
+        rgba(255, 149, 0, 0.1) 75%, 
+        rgba(0, 122, 255, 0.1) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+.game-container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.header {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 20px;
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.apple-logo {
+    font-size: 2.5em;
+    filter: drop-shadow(0 0 10px rgba(0, 122, 255, 0.5));
+}
+
+.header h1 {
+    font-size: 2.8em;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+
+.main-content {
+    flex: 1;
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    gap: 40px;
+}
+
+.question-area {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+.question-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 35px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px var(--shadow-color);
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.question-number {
+    color: var(--primary-color);
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--background-light);
+    border-radius: 3px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.question-text {
+    font-size: 1.5em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.option {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1em;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.2);
+}
+
+.option:hover::before {
+    left: 100%;
+}
+
+.option.selected {
+    background: rgba(0, 122, 255, 0.2);
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+}
+
+.option.correct {
+    background: rgba(52, 199, 89, 0.2);
+    border-color: var(--secondary-color);
+    animation: correctPulse 1s ease-in-out;
+}
+
+.option.incorrect {
+    background: rgba(255, 59, 48, 0.2);
+    border-color: var(--danger-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes correctPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border: 2px solid var(--glass-border);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background: var(--gradient-success);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background: var(--gradient-warning);
+    border-color: var(--accent-color);
+}
+
+.btn-icon {
+    font-size: 1.2em;
+}
+
+
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.prize-ladder,
+.stats-panel,
+.apple-info {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px var(--shadow-color);
+}
+
+.prize-ladder h3,
+.stats-panel h3 {
+    color: var(--primary-color);
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.ladder-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.ladder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ladder-item.current {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    animation: currentGlow 2s ease-in-out infinite alternate;
+    transform: scale(1.05);
+}
+
+.ladder-item.completed {
+    background: var(--gradient-success);
+    color: white;
+    font-weight: 500;
+}
+
+@keyframes currentGlow {
+    from { box-shadow: 0 0 10px rgba(0, 122, 255, 0.5); }
+    to { box-shadow: 0 0 20px rgba(0, 122, 255, 0.8); }
+}
+
+
+.stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+
+.apple-fact {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+
+.game-over {
+    text-align: center;
+    padding: 40px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px var(--shadow-color);
+}
+
+.game-over h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: celebration 2s ease-in-out infinite;
+}
+
+@keyframes celebration {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.final-score {
+    font-size: 2.2em;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin: 25px 0;
+    text-shadow: 0 2px 10px rgba(52, 199, 89, 0.3);
+}
+
+.game-summary {
+    font-size: 1.2em;
+    margin: 20px 0;
+    color: var(--text-secondary);
+}
+
+
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .sidebar {
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    .sidebar > * {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 2.2em;
+    }
+    
+    .question-text {
+        font-size: 1.3em;
+    }
+    
+    .option {
+        padding: 18px;
+        font-size: 1em;
+    }
+    
+    .sidebar {
+        flex-direction: column;
+    }
+    
+    .main-content {
+        padding: 20px 15px;
+    }
+    
+    .question-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .progress-bar {
+        margin-left: 0;
+        width: 100%;
+    }
+}

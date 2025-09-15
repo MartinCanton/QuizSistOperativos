@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quien quiere ser millonario?</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+    <body>
+        <div class="background-blur" id="backgroundBlur"></div>
+        <div class="game-container">
+            <div class="header">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="apple-logo">🍎</span>
+                        <h1>SO macOS/iOS Quiz</h1>
+                    </div>
+                    <p class="subtitle">Sistemas Operativos de Apple</p>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="question-area" id="questionArea">
+                    <div class="question-card">
+                        <div class="question-header">
+                            <span class="question-number" id="questionNumber">Pregunta 1</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+                        <div class="question-text" id="questionText">
+                            ¡Bienvenidos a Quien quiere ser millonario!
+                            <br><br>Vamos a ver sus conocimientos sobre macOS e iOS.
+                            <br>Presiona "Iniciar" para comenzar.
+                        </div>
+                        <div class="options-grid" id="optionsGrid" style="display: none;"></div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="startBtn" onclick="startGame()">
+                            <span class="btn-icon">▶</span>
+                            Iniciar 
+                        </button>
+                        <button class="btn btn-success" id="nextBtn" onclick="nextQuestion()" style="display: none;">
+                            <span class="btn-icon">→</span>
+                            Siguiente
+                        </button>
+                        <button class="btn btn-secondary" id="restartBtn" onclick="restartGame()"
+                            style="display: none;">
+                            <span class="btn-icon">↻</span>
+                            Reiniciar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="prize-ladder">
+                        <h3>🏆 Premio Acumulado</h3>
+                        <div class="ladder-container" id="moneyLadder"></div>
+                    </div>
+
+                    <div class="stats-panel">
+                        <h3>📊 Estadísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Pregunta:</span>
+                                <span class="stat-value" id="currentQuestion">1/15</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Correctas:</span>
+                                <span class="stat-value" id="correctAnswers">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Precisión:</span>
+                                <span class="stat-value" id="accuracy">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="apple-info">
+                        <div class="apple-fact" id="appleFact">
+                             Dato Apple: macOS usa el núcleo XNU ("X is Not Unix")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./script1.js"></script>
+    </body>
+
+</html>
